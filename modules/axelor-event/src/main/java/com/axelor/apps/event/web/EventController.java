@@ -11,7 +11,7 @@ public class EventController {
 
   public void validates(ActionRequest request, ActionResponse response) {
     Event event = request.getContext().asType(Event.class);
-    String error ="";
+    String error = "";
     if (event.getStartDate() != null
         && event.getEndDate() != null
         && (event.getEndDate().isBefore(event.getStartDate()))) {
@@ -25,8 +25,7 @@ public class EventController {
     if (event.getTotalEntry() == event.getCapacity() && event.getCapacity() != 0) {
       error = "No of Registration is more Than total capacity of Event";
     }
-    if(!error.equals(""))
-      response.setError(error);
+    if (!error.equals("")) response.setError(error);
   }
 
   public void calTotalAmount(ActionRequest request, ActionResponse response) {
@@ -39,17 +38,17 @@ public class EventController {
           registration.setEvent(event);
         }
       }
+      event.setTotalDiscount(
+          event
+              .getEventFee()
+              .multiply(new BigDecimal(event.getEventRegistration().size()))
+              .subtract(totalAmount));
     }
-    event.setTotalDiscount(
-        event
-            .getEventFee()
-            .multiply(new BigDecimal(event.getEventRegistration().size()))
-            .subtract(totalAmount));
     event.setAmountCollected(totalAmount);
     response.setValues(event);
   }
-  
-  public void setTotalEntries(ActionRequest request, ActionResponse response ) {
+
+  public void setTotalEntries(ActionRequest request, ActionResponse response) {
     Event event = request.getContext().asType(Event.class);
     if (event.getEventRegistration() != null && !event.getEventRegistration().isEmpty()) {
       event.setTotalEntry(event.getEventRegistration().size());

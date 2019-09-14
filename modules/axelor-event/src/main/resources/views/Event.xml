@@ -14,6 +14,9 @@
 	</grid>
 
 	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="save,action-event-group-onSave,save" onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry">
+	<toolbar>
+		<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>	
+	</toolbar>
 		<panel>
 			<field name="reference">
 				<viewer>
@@ -98,4 +101,7 @@
 		<call class="com.axelor.apps.event.web.EventController" method="setTotalEntries"/>
 	</action-method>
 	
+	<action-report output="Event" name="action-event-report" design="Event.rptdesign">
+		<param name="id" expr="eval: id" />
+	</action-report>
 </object-views>
