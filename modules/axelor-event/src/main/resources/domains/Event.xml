@@ -4,7 +4,7 @@
 
 	<module name="event" package="com.axelor.apps.event.db" />
 	<entity name="Event" sequential="true">
-		<string name="reference" title="Reference" namecolumn="true"/>
+		<string name="reference" title="Reference" namecolumn="true" required="true"/>
 		<datetime name="startDate" title="Start Date" />
 		<datetime name="endDate" title="End Date"/>
 		<date name="registrationOpen" title="Registration Open"/>

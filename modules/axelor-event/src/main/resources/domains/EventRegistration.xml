@@ -4,7 +4,7 @@
 
 	<module name="event" package="com.axelor.apps.event.db" />
 	<entity name="EventRegistration" sequential="true">
-		<many-to-one name="event" ref="Event" title="Event"/>
+		<many-to-one name="event" ref="Event" title="Event" />
 		<string name="name" title="Name" />
 		<string name="email" title="Email" />
 		<many-to-one name="address" ref="Address" title="Address"/>

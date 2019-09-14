@@ -10,8 +10,8 @@
 		<panel name="address">
 			<field name="houseNo" colSpan="6"/>
 			<field name="street" colSpan="6"/>
-			<field name="city" colSpan="6"/>
-			<field name="country" colSpan="6"/>
+			<field name="city" colSpan="6" required="true"/>
+			<field name="country" colSpan="6" required="true"/>
 		</panel>
 	</form>
 </object-views>

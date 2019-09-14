@@ -15,7 +15,7 @@ public class EventRegistrationController {
     EventRegistration registration = request.getContext().asType(EventRegistration.class);
     if(request.getContext().getParent()!=null) {
       Event event = request.getContext().getParent().asType(Event.class);
-      response.setAttr("event", "value", event);
+      response.setAttr("event", "hidden", true);
       registration.setEvent(event);
     }
     response.setValues(registration);

@@ -7,8 +7,8 @@
 	<menuitem title="Events" name="menu-event-root-events" action="event.root.events" parent="menu-event-root" />
 	<action-view name="event.root.events" title="All Events" model="com.axelor.apps.event.db.Event">
 		<view type="cards" name="event-card"/>
-		<view type="form" name="event-form"/>
 		<view type="grid" name="event-grid"/>
+		<view type="form" name="event-form"/>
 		<view type="calendar" name="event-calendar"/>
 		<context name="json-enhance" expr="true" />
 	</action-view>
@@ -16,19 +16,13 @@
 	<menuitem title="Event Registrations" name="menu-event-root-event-registration" action="event.root.event.registration"
 	parent="menu-event-root" />
 	<action-view name="event.root.event.registration" title="Event Registration" model="com.axelor.apps.event.db.EventRegistration">
-		<view type="form" name="event-registration-form"/>
 		<view type="grid" name="event-registration-grid"/>
+		<view type="form" name="event-registration-form"/>
 	</action-view>
 	
 	<menuitem title="Address" name="menu-event-root-address" parent="menu-event-root" action="menu-event-address"/>	
 	<action-view name="menu-event-address" title="Address" model="com.axelor.apps.event.db.Address">
-		<view type="form" name="address-form"/>
 		<view type="grid" name="address-grid"/>
-	</action-view>
-
-	<menuitem title="Discounts" name="menu-event-root-discount" parent="menu-event-root" action="menu-event-discount"/>
-	<action-view name="menu-event-discount" title="All Discounts" model="com.axelor.apps.event.db.Discount">
-		<view type="grid" name="discount-grid"/>
-		<view type="form" name="discount-form"/>
+		<view type="form" name="address-form"/>
 	</action-view>
 </object-views>
