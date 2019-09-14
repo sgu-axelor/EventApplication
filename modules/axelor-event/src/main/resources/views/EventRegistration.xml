@@ -10,18 +10,25 @@
 		<field name="amount" />
 	</grid>
 
-	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form">
+	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form" onNew="action.event.method.setDefaults">
 		<panel title="Personal Information">
 			<field name="name" />
 			<field name="email" />
 			<field name="address" />
 		</panel>
 		<panel colSpan="12">
+			<field name="registrationDate" onChange="action-event-method-calAmount" showIf="event"/>
 			<field name="event" canNew="false"/>
-			<field name="registrationDate" />
 		</panel>
 		<panel>
 			<field name="amount" />
 		</panel>
 	</form>
+	
+	<action-method name="action.event.method.setDefaults">
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="defaults"/>
+	</action-method>
+	<action-method name="action-event-method-calAmount">
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount"/>
+	</action-method>
 </object-views>

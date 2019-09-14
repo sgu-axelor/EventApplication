@@ -13,7 +13,7 @@
 		<field name="venue" />
 	</grid>
 
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave">
 		<panel>
 			<field name="reference">
 				<viewer>
@@ -43,12 +43,16 @@
 		</panel>
 		<panel-tabs>
 			<panel title="Event Resgistrations">
-				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12" />
+				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12" onChange="action-event-method-calTotalAmount"/>
 			</panel>
 			<panel title="Discounts">
-				<panel-related field="discount" grid-view="discount-grid" editable="true" colSpan="12" />
+				<panel-related field="discount" canSelect="true" colSpan="12" grid-view="discount-grid" form-view="discount-form">
 			</panel>
 		</panel-tabs>
+		<panel sidebar="true"> 
+			<field name="amountCollected"/>
+			<field name="totalDiscount"/>
+		</panel>
 	</form>
 
 	<calendar name="event-calendar" title="Events" mode="month" colorBy="reference" model="com.axelor.apps.event.db.Event" eventStart="startDate">
@@ -75,4 +79,21 @@
 			</div>
 		]]></template>
 	</cards>
+	
+	<action-group name="action-event-group-onSave">
+		<action name="action-event-method-validations"/>
+		<action name="action-event-record-set-totalEntry" if="!id"/>
+	</action-group>
+	
+	<action-record name="action-event-record-set-totalEntry" model="com.axelor.apps.event.db.Event">
+		<field name="totalEntry" expr="eval: totalEntry+1"/>
+	</action-record>
+	
+	<action-method name="action-event-method-validations">
+		<call class="com.axelor.apps.event.web.EventController" method="validates"/>
+	</action-method>
+	
+	<action-method name="action-event-method-calTotalAmount">
+		<call class="com.axelor.apps.event.web.EventController" method="calTotalAmount"/>
+	</action-method>
 </object-views>

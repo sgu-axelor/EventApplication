@@ -29,5 +29,6 @@
 	<menuitem title="Discounts" name="menu-event-root-discount" parent="menu-event-root" action="menu-event-discount"/>
 	<action-view name="menu-event-discount" title="All Discounts" model="com.axelor.apps.event.db.Discount">
 		<view type="grid" name="discount-grid"/>
+		<view type="form" name="discount-form"/>
 	</action-view>
 </object-views>
