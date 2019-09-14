@@ -22,6 +22,7 @@
                         ]]>
 				</viewer>
 			</field>
+			<field name="totalEntry"/>
 		</panel>
 
 		<panel title="Important Dates">
@@ -37,7 +38,7 @@
 		<panel title="Genral Information">
 			<field name="capacity" colSpan="4" />
 			<field name="eventFee" colSpan="4" />
-			<field name="venue" colSpan="6" canNew="true" canEdit="false"/>
+			<field name="venue" colSpan="6" canNew="true" canEdit="false" />
 			<field name="description" colSpan="8" />
 		</panel>
 		<panel-tabs>
@@ -49,4 +50,29 @@
 			</panel>
 		</panel-tabs>
 	</form>
+
+	<calendar name="event-calendar" title="Events" mode="month" colorBy="reference" model="com.axelor.apps.event.db.Event" eventStart="startDate">
+		<field name="reference" />
+	</calendar>
+	
+	<cards name="event-card" model="com.axelor.apps.event.db.Event" title="Events">
+		<field name="reference" />
+		<field name="startDate" />
+		<field name="endDate" />
+		<field name="registrationOpen" />
+		<field name="registrationClose" />
+		<field name="eventFee"/>
+		<template><![CDATA[
+			  <div>
+				 <strong x-translate>{{record.reference}}</strong>
+			  </div>
+			  <div>
+				<span><b>Event Period: </b>{{record.startDate}} - {{record.endDate}}</span><br>
+				<span><b>Registration Period: </b>{{record.registrationOpen}} - {{record.registrationClose}}</span><br>
+				<span><b>Event's Entry Fees: </b>{{record.eventFee}}</span>
+				<span><b>Entries Till Date: </b>{{record.totalEntry}}</span>
+			  </div>
+			</div>
+		]]></template>
+	</cards>
 </object-views>

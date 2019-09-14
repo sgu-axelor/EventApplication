@@ -11,9 +11,9 @@
 		<string name="fullname" title="Address" namecolumn="true" search="houseNo,street,city,country">
 			<![CDATA[
     		return (!Strings.isNullOrEmpty(houseNo) ? houseNo : "")
-        + (!Strings.isNullOrEmpty(street) ? " " + street : "")
-        + (!Strings.isNullOrEmpty(city) ? " " + city : "")
-        + (!Strings.isNullOrEmpty(country) ? " " + country : "");
+        		+ (!Strings.isNullOrEmpty(street) ? " " + street : "")
+        		+ (!Strings.isNullOrEmpty(city) ? " " + city : "")
+        		+ (!Strings.isNullOrEmpty(country) ? " " + country : "");
 	    ]]></string>
 	   	<extra-imports>
 			<![CDATA[
