@@ -10,25 +10,28 @@
 		<field name="amount" />
 	</grid>
 
-	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form" onNew="action.event.method.setDefaults">
+	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form"
+		onNew="action.event.method.setDefaults">
 		<panel title="Personal Information">
 			<field name="name" />
-			<field name="email" />
+			<field name="email" placeholder="whatever@example.com"
+				pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$" />
 			<field name="address" />
 		</panel>
 		<panel colSpan="12">
-			<field name="registrationDate" onChange="action-event-method-calAmount" showIf="event"/>
-			<field name="event" canNew="false"/>
+			<field name="registrationDate" onChange="action-event-method-calAmount" showIf="event" />
+			<field name="event" canNew="false" />
 		</panel>
 		<panel>
 			<field name="amount" />
 		</panel>
 	</form>
-	
+
 	<action-method name="action.event.method.setDefaults">
-		<call class="com.axelor.apps.event.web.EventRegistrationController" method="defaults"/>
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="defaults" />
 	</action-method>
+
 	<action-method name="action-event-method-calAmount">
-		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount"/>
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount" />
 	</action-method>
 </object-views>

@@ -13,7 +13,7 @@
 		<field name="venue" />
 	</grid>
 
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="save,action-event-group-onSave,save">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="save,action-event-group-onSave,save" onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry">
 		<panel>
 			<field name="reference">
 				<viewer>

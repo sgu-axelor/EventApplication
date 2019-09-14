@@ -23,7 +23,11 @@ public class EventRegistrationController {
   
   public void calculateAmount(ActionRequest request, ActionResponse response ) {
     EventRegistration registration = request.getContext().asType(EventRegistration.class);
-    Event event =request.getContext().getParent().asType(Event.class);
+    Event event =null;
+    if(request.getContext().getParent()!=null)
+      event =request.getContext().getParent().asType(Event.class);
+    else
+      event =registration.getEvent();
     if(event == null) {
       event = registration.getEvent();
     }
@@ -35,4 +39,5 @@ public class EventRegistrationController {
     }
     response.setValues(registration);
   }
+  
 }
