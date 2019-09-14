@@ -9,6 +9,15 @@
 		<string name="city" title="City" />
 		<string name="country" title="Country" />
 		<string name="fullname" title="Address" namecolumn="true" search="houseNo,street,city,country">
-		</string>
+			<![CDATA[
+    		return (!Strings.isNullOrEmpty(houseNo) ? houseNo : "")
+        + (!Strings.isNullOrEmpty(street) ? " " + street : "")
+        + (!Strings.isNullOrEmpty(city) ? " " + city : "")
+        + (!Strings.isNullOrEmpty(country) ? " " + country : "");
+	    ]]></string>
+	   	<extra-imports>
+			<![CDATA[
+			import com.google.common.base.Strings;
+		]]></extra-imports>
 	</entity>
 </domain-models>

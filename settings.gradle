@@ -1,0 +1,3 @@
+rootProject.name = 'axelor-event-app'
+
+include "modules:axelor-event"

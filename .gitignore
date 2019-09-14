@@ -14,9 +14,5 @@ application.min.*
 .idea/
 out/
 *.iml
-build.gradle
 gradle/
-gradlew
-gradlew.bat
-settings.gradle
 
