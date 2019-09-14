@@ -14,7 +14,7 @@
 		<decimal name="eventFee" title="Event Fees" min="0"/>
 		<string name="description" title="Description" large="true" multiline="true"/>
 		<one-to-many ref="Discount" name="discount" title="Dicount"/>
-		<one-to-many name="eventRegistration" ref="EventRegistration" mappedBy="event"/>
+		<one-to-many name="eventRegistration" ref="EventRegistration" mappedBy="event" title="Event Registration"/>
 		<integer name="totalEntry" title="Total Entries" min="0" readonly="true"/>
 		<decimal name="amountCollected" title="Amount Collected" readonly="true"/>
 		<decimal name="totalDiscount" title="Total Discount" readonly="true"/>

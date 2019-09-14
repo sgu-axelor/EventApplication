@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
+
+	<grid model="com.axelor.apps.event.db.Event" title="Event" name="event-grid">
+		<field name="reference" />
+		<field name="startDate" />
+		<field name="endDate" />
+		<field name="registrationOpen" />
+		<field name="registrationClose" />
+		<field name="totalEntry" />
+		<field name="eventFee" />
+		<field name="venue" />
+	</grid>
+
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form">
+		<panel>
+			<field name="reference">
+				<viewer>
+					<![CDATA[
+                        <span ng-show="record.reference != null"> <h2>{{record.invoiceId}}</h2></span>
+                        ]]>
+				</viewer>
+			</field>
+		</panel>
+
+		<panel title="Important Dates">
+			<panel colSpan="12">
+				<field name="startDate" />
+				<field name="endDate" />
+			</panel>
+			<panel colSpan="12">
+				<field name="registrationOpen" />
+				<field name="registrationClose" />
+			</panel>
+		</panel>
+		<panel title="Genral Information">
+			<field name="capacity" colSpan="4" />
+			<field name="eventFee" colSpan="4" />
+			<field name="venue" colSpan="6" canNew="true" canEdit="false"/>
+			<field name="description" colSpan="8" />
+		</panel>
+		<panel-tabs>
+			<panel title="Event Resgistrations">
+				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12" />
+			</panel>
+			<panel title="Discounts">
+				<panel-related field="discount" grid-view="discount-grid" editable="true" colSpan="12" />
+			</panel>
+		</panel-tabs>
+	</form>
+</object-views>
