@@ -13,10 +13,20 @@
 		<field name="venue" />
 	</grid>
 
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave" onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry,save">
-	<toolbar>
-		<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>	
-	</toolbar>
+	<form model="com.axelor.apps.base.db.Wizard" title="Import Registration of This Event" name="event-import-wizard-form">
+		<panel>
+			<field name="dataFile" type="many-to-one" widget="binary-link" target="com.axelor.meta.db.MetaFile" title="Data File"/>
+			<button name="importWizardButton" onClick="action-event-wizard-method-import-registrations,close" title="Import" />
+		</panel>
+	</form>
+
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave"
+		onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry,save">
+		<toolbar>
+			<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>
+			<button name="importButton" onClick="action-event-view-eventWizard,close" title="Import registration" showIf="id"/>
+			<button name="sendEmailButton" onClick="" title ="SendEmail" showIf="id &amp;&amp; eventRegistration!=null" icon="fa-paper-plane"/>
+		</toolbar>
 		<panel>
 			<field name="reference">
 				<viewer>
@@ -25,17 +35,17 @@
                         ]]>
 				</viewer>
 			</field>
-			<field name="totalEntry"/>
+			<field name="totalEntry" />
 		</panel>
 
 		<panel title="Important Dates">
 			<panel colSpan="12">
-				<field name="startDate" required="true"/>
-				<field name="endDate" required="true"/>
+				<field name="startDate" required="true" />
+				<field name="endDate" required="true" />
 			</panel>
 			<panel colSpan="12">
-				<field name="registrationOpen" required="true"/>
-				<field name="registrationClose" required="true"/>
+				<field name="registrationOpen" required="true" />
+				<field name="registrationClose" required="true" />
 			</panel>
 		</panel>
 		<panel title="Genral Information">
@@ -46,29 +56,31 @@
 		</panel>
 		<panel-tabs>
 			<panel title="Event Registrations">
-				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12" onChange="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry"/>
+				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12"
+					onChange="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry" />
 			</panel>
 			<panel title="Discounts" showIf="registrationOpen!=null &amp;&amp; registrationClose!=null">
-				<panel-related field="discount" colSpan="12" grid-view="discount-grid" form-view="discount-form"/>
+				<panel-related field="discount" colSpan="12" grid-view="discount-grid" form-view="discount-form" />
 			</panel>
 		</panel-tabs>
-		<panel sidebar="true"> 
-			<field name="amountCollected"/>
-			<field name="totalDiscount"/>
+		<panel sidebar="true">
+			<field name="amountCollected" />
+			<field name="totalDiscount" />
 		</panel>
 	</form>
 
-	<calendar name="event-calendar" title="Events" mode="month" colorBy="reference" model="com.axelor.apps.event.db.Event" eventStart="startDate">
+	<calendar name="event-calendar" title="Events" mode="month" colorBy="reference" model="com.axelor.apps.event.db.Event"
+		eventStart="startDate">
 		<field name="reference" />
 	</calendar>
-	
+
 	<cards name="event-card" model="com.axelor.apps.event.db.Event" title="Events">
 		<field name="reference" />
 		<field name="startDate" />
 		<field name="endDate" />
 		<field name="registrationOpen" />
 		<field name="registrationClose" />
-		<field name="eventFee"/>
+		<field name="eventFee" />
 		<template><![CDATA[
 			  <div>
 				 <strong x-translate>{{record.reference}}</strong>
@@ -82,26 +94,41 @@
 			</div>
 		]]></template>
 	</cards>
-	
+
+
+
 	<action-group name="action-event-group-onSave">
-		<action name="action-event-method-validations"/>
-		<action name="action-event-mthod-set-totalEntry"/>
-		<action name="action-event-method-calTotalAmount"/>
+		<action name="action-event-method-validations" />
+		<action name="action-event-mthod-set-totalEntry" />
+		<action name="action-event-method-calTotalAmount" />
 	</action-group>
-	
+
 	<action-method name="action-event-method-validations">
-		<call class="com.axelor.apps.event.web.EventController" method="validates"/>
+		<call class="com.axelor.apps.event.web.EventController" method="validates" />
 	</action-method>
-	
+
 	<action-method name="action-event-method-calTotalAmount">
-		<call class="com.axelor.apps.event.web.EventController" method="calTotalAmount"/>
+		<call class="com.axelor.apps.event.web.EventController" method="calTotalAmount" />
 	</action-method>
-	
+
 	<action-method name="action-event-mthod-set-totalEntry">
-		<call class="com.axelor.apps.event.web.EventController" method="setTotalEntries"/>
+		<call class="com.axelor.apps.event.web.EventController" method="setTotalEntries" />
 	</action-method>
-	
+
 	<action-report output="Event" name="action-event-report" design="Event.rptdesign">
 		<param name="id" expr="eval: id" />
 	</action-report>
+
+	<action-view name="action-event-view-eventWizard" title="Import Registration of This Event" model="com.axelor.apps.base.db.Wizard">
+		<view type="form" name="event-import-wizard-form" />
+		<view-param name="popup" value="reload" />
+		<view-param name="popup-save" value="false" />
+		<view-param name="show-toolbar" value="false" />
+		<view-param name="show-confirm" value="false" />
+	</action-view>
+
+	<action-method name="action-event-wizard-method-import-registrations">
+		<call class="com.axelor.apps.event.web.EventController" method="importRegistrations" />
+	</action-method>
+
 </object-views>

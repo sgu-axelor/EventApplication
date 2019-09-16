@@ -4,3 +4,6 @@ axelor {
     title = "Axelor :: EVENT"
 }
 
+dependencies {
+	compile project(":modules:axelor-message")
+}

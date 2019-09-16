@@ -23,5 +23,6 @@ public interface ITranslation {
   public static final String VALIDATION_ERROR_MESSAGE_2 = /*$$(*/ "Closing date Cannot be Before of Opening Date"; /*)*/
   public static final String VALIDATION_ERROR_MESSAGE_3 = /*$$(*/ "Closing Date of Registration can never be After the Start Date of the Event"; /*)*/
   public static final String VALIDATION_ERROR_MESSAGE_4 = /*$$(*/ "No. of Registration is more Than total capacity of Event"; /*)*/
+  public static final String FILE_NOT_CSV_MESSAGE = /*$$(*/ "Only '.csv' file should be uploaded"; /*)*/
 }
 

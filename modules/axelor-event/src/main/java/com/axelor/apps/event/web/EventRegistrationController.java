@@ -1,6 +1,7 @@
 package com.axelor.apps.event.web;
 
 import java.math.BigDecimal;
+import java.util.Map;
 
 import com.axelor.apps.event.db.Event;
 import com.axelor.apps.event.db.EventRegistration;
@@ -52,4 +53,8 @@ public class EventRegistrationController {
       event.setTotalEntry(event.getTotalEntry()+1);
     }
   }
+  
+  public void checkRegistration(Object bean, Map<String, Object> values) {
+	EventRegistration registration = (EventRegistration) bean;
+}
 }
