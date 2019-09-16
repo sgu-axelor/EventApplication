@@ -21,7 +21,7 @@
 			<field name="reference">
 				<viewer>
 					<![CDATA[
-                        <span ng-show="record.reference != null"> <h2>{{record.invoiceId}}</h2></span>
+                        <span ng-show="record.reference != null"> <h2>{{record.reference}}</h2></span>
                         ]]>
 				</viewer>
 			</field>
