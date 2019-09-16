@@ -13,7 +13,7 @@
 		<field name="venue" />
 	</grid>
 
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="save,action-event-group-onSave,save" onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave" onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry,save">
 	<toolbar>
 		<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>	
 	</toolbar>
@@ -30,12 +30,12 @@
 
 		<panel title="Important Dates">
 			<panel colSpan="12">
-				<field name="startDate" />
-				<field name="endDate" />
+				<field name="startDate" required="true"/>
+				<field name="endDate" required="true"/>
 			</panel>
 			<panel colSpan="12">
-				<field name="registrationOpen" />
-				<field name="registrationClose" />
+				<field name="registrationOpen" required="true"/>
+				<field name="registrationClose" required="true"/>
 			</panel>
 		</panel>
 		<panel title="Genral Information">
@@ -46,9 +46,9 @@
 		</panel>
 		<panel-tabs>
 			<panel title="Event Registrations">
-				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12" onChange="action-event-method-calTotalAmount"/>
+				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12" onChange="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry"/>
 			</panel>
-			<panel title="Discounts">
+			<panel title="Discounts" showIf="registrationOpen!=null &amp;&amp; registrationClose!=null">
 				<panel-related field="discount" colSpan="12" grid-view="discount-grid" form-view="discount-form"/>
 			</panel>
 		</panel-tabs>
@@ -85,7 +85,7 @@
 	
 	<action-group name="action-event-group-onSave">
 		<action name="action-event-method-validations"/>
-		<action name="action-event-mthod-set-totalEntry" if="!id"/>
+		<action name="action-event-mthod-set-totalEntry"/>
 		<action name="action-event-method-calTotalAmount"/>
 	</action-group>
 	

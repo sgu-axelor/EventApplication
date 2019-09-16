@@ -11,16 +11,16 @@
 	</grid>
 
 	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form"
-		onNew="action.event.method.setDefaults">
+		onNew="action.event.method.setDefaults" onSave="action-event-registration-method-onSave">
 		<panel title="Personal Information">
-			<field name="name" />
+			<field name="name" required="true"/>
 			<field name="email" placeholder="whatever@example.com"
 				pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$" />
 			<field name="address" />
 		</panel>
 		<panel colSpan="12">
-			<field name="registrationDate" onChange="action-event-method-calAmount" showIf="event" />
-			<field name="event" canNew="false" />
+			<field name="registrationDate" onChange="action-event-method-calAmount" showIf="event" required="true"/>
+			<field name="event" canNew="false" hideIf="$popup()" onChange="action-event-registration-validate"/>
 		</panel>
 		<panel>
 			<field name="amount" />
@@ -33,5 +33,17 @@
 
 	<action-method name="action-event-method-calAmount">
 		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount" />
+	</action-method>
+	
+	<action-validate name="action-event-registration-validate">
+		<error message="Registration Close as Event is HouseFull" if="eval: event?.totalEntry &gt;= event.capacity" action="action-event-registration-record-set-event"/>
+	</action-validate>
+	
+	<action-record name="action-event-registration-record-set-event" model="com.axelor.apps.event.db.EventRegistration">
+		<field name="event" expr="eval: null" if="registrationDate==null"/>
+	</action-record>
+	
+	<action-method name="action-event-registration-method-onSave">
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="setTotalEntry"/>
 	</action-method>
 </object-views>

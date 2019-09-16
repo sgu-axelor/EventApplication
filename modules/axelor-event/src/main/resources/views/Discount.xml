@@ -7,12 +7,15 @@
 		<field name="discountPercentage" />
 		<field name="discountAmount"/>
 	</grid>
-	<form model="com.axelor.apps.event.db.Discount" title="Discount" name="discount-form" >
-		<field name="beforeDays" />
+	<form model="com.axelor.apps.event.db.Discount" title="Discount" name="discount-form">
+		<field name="beforeDays" onChange="action-discount-method-check-beforeDay"/>
 		<field name="discountPercentage" onChange="action-event-discount-method-setDiscountAmount"/>
 		<field name="discountAmount" readonly="true"/>
 	</form>
 	<action-method name="action-event-discount-method-setDiscountAmount">
 		<call class="com.axelor.apps.event.web.DiscountController" method="setDiscountAmount"/>
+	</action-method>
+	<action-method name="action-discount-method-check-beforeDay">
+		<call class="com.axelor.apps.event.web.DiscountController" method="setBeforeDay"/>
 	</action-method>
 </object-views>

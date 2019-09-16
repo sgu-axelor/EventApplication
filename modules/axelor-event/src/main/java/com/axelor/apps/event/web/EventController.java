@@ -10,22 +10,26 @@ import com.axelor.rpc.ActionResponse;
 public class EventController {
 
   public void validates(ActionRequest request, ActionResponse response) {
-    Event event = request.getContext().asType(Event.class);
-    String error = "";
-    if (event.getStartDate() != null
-        && event.getEndDate() != null
-        && (event.getEndDate().isBefore(event.getStartDate()))) {
-      error = "End Date Cannot be Before Start Date";
-    }
-    if (event.getRegistrationOpen() != null
-        && event.getRegistrationClose() != null
-        && (event.getRegistrationClose().isBefore(event.getRegistrationOpen()))) {
-      error = "Closing date Cannot be Before of Opening Date";
-    }
-    if (event.getTotalEntry() == event.getCapacity() && event.getCapacity() != 0) {
-      error = "No of Registration is more Than total capacity of Event";
-    }
-    if (!error.equals("")) response.setError(error);
+    Event event =  request.getContext().asType(Event.class);
+      try {
+        if (event.getStartDate() != null && event.getEndDate().isBefore(event.getStartDate())) {
+          throw new Exception("End Date Cannot be Before Start Date");
+        }
+        if (event.getRegistrationOpen() != null
+            && event.getRegistrationClose().isBefore(event.getRegistrationOpen())) {
+          throw new Exception("Closing date Cannot be Before of Opening Date");
+        }
+        if (event.getRegistrationClose().isAfter(event.getStartDate().toLocalDate())) {
+          throw new Exception(
+              "Closing Date of Registration can never be After the Start Date of the Event");
+        }
+        if (event.getCapacity() != 0 && event.getTotalEntry() > event.getCapacity()) {
+          throw new Exception("No. of Registration is more Than total capacity of Event");
+        }
+      } catch (Exception e) {
+        response.setError(e.getMessage());
+      }
+    
   }
 
   public void calTotalAmount(ActionRequest request, ActionResponse response) {
