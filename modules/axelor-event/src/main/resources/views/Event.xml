@@ -23,9 +23,9 @@
 	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave"
 		onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry,save">
 		<toolbar>
-			<button name="rptButton" onClick="action-event-method-set-report-params,action-event-report" title="Report this Event" showIf="id"/>
+			<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>
 			<button name="importButton" onClick="action-event-view-eventWizard,close" title="Import registration" showIf="id"/>
-			<button name="sendEmailButton" onClick="action-send-by-email-with-template" title ="SendEmail" showIf="id &amp;&amp; eventRegistration!=null" icon="fa-paper-plane"/>
+			<button name="sendEmailButton" onClick="action-event-method-send-email" title ="SendEmail" showIf="id &amp;&amp; eventRegistration!=null" icon="fa-paper-plane"/>
 		</toolbar>
 		<panel>
 			<field name="reference">
@@ -127,13 +127,15 @@
 		<call class="com.axelor.apps.event.web.EventController" method="importRegistrations" />
 	</action-method>
 
-	<action-method name="action-event-method-set-report-params">
-		<call class="com.axelor.apps.event.web.EventController" method="setReportParams"/>
+	<action-method name="action-message-method-set-email-boolean">
+		<call class="com.axelor.apps.event.web.EventController" method="setEmailBoolean"/>
 	</action-method>
 	
+	<action-method name="action-event-method-send-email">
+		<call class="com.axelor.apps.event.web.MessageGenerator" method="callMessageWizard"/>
+	</action-method>
 	
 	<action-report output="Event" name="action-event-report" design="Event.rptdesign">
 		<param name="id" expr="eval: id" />
-		<param name="Attachments" expr="eval: Attachments" />
 	</action-report>
 </object-views>

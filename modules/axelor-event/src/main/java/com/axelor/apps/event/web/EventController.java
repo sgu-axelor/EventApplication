@@ -12,6 +12,7 @@ import com.axelor.apps.event.db.Event;
 import com.axelor.apps.event.db.EventRegistration;
 import com.axelor.apps.event.db.repo.EventRegistrationRepository;
 import com.axelor.apps.event.db.repo.EventRepository;
+import com.axelor.apps.event.service.EventService;
 import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
 import com.axelor.rpc.ActionRequest;
@@ -98,14 +99,12 @@ public class EventController {
 
           String[] nextRecord;
           while ((nextRecord = csvReader.readNext()) != null) {
-            System.err.println(nextRecord[0]);
             EventRegistration registration = new EventRegistration();
             registration.setEvent(event);
             registration.setName(nextRecord[0]);
             registration.setEmail(nextRecord[1]);
 
             event.getEventRegistration().add(registration);
-            System.err.println(registration);
             registrationRepo.save(registration);
           }
         } else {
@@ -116,11 +115,9 @@ public class EventController {
       response.setError(e.getMessage());
     }
   }
-
-  public void setReportParams(ActionRequest req, ActionResponse res) {
-    String attachmentPath = AppSettings.get().getPath("file.upload.dir", "");
-    if (attachmentPath.charAt(attachmentPath.length() - 1) == '/')
-      req.getContext().put("Attachments", attachmentPath);
-    else req.getContext().put("Attachments", attachmentPath + "/");
+  
+  public void setEmailBoolean(ActionRequest request, ActionResponse response) {
+    Map<String, Object> context = request.getContext();
+    Beans.get(EventService.class).setEmailBoolean((Integer) context.get("_event")); 
   }
 }
