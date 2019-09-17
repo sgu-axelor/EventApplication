@@ -27,7 +27,6 @@ public class DiscountController {
     Discount discount = request.getContext().asType(Discount.class);
     if (request.getContext().getParent() != null) {
       Event event = request.getContext().getParent().asType(Event.class);
-      System.err.println(event.getRegistrationOpen().plusDays(discount.getBeforeDays()));
       if (event
               .getRegistrationOpen()
               .plusDays(discount.getBeforeDays())

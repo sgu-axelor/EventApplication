@@ -6,13 +6,14 @@ import java.util.Map;
 import com.axelor.apps.event.db.Event;
 import com.axelor.apps.event.db.EventRegistration;
 import com.axelor.apps.event.service.EventRegistrationService;
+import com.axelor.inject.Beans;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
 
 public class EventRegistrationController {
   EventRegistrationService eventRegistrationService;
-  
+
   @Inject
   public EventRegistrationController(EventRegistrationService eventRegistrationService) {
     super();
@@ -45,16 +46,15 @@ public class EventRegistrationController {
     }
     response.setValues(registration);
   }
-  
-  public void setTotalEntry( ActionRequest request, ActionResponse response ) {
+
+  public void updateEvent(ActionRequest request, ActionResponse response) {
     EventRegistration registration = request.getContext().asType(EventRegistration.class);
     Event event = registration.getEvent();
-    if(request.getContext().get("id")==null) {
-      event.setTotalEntry(event.getTotalEntry()+1);
-    }
+    eventRegistrationService.updateEvent(event,registration);
+    response.setValues(registration);
   }
-  
-  public void checkRegistration(Object bean, Map<String, Object> values) {
-	EventRegistration registration = (EventRegistration) bean;
-}
+
+  /*  public void checkRegistration(Object bean, Map<String, Object> values) {
+  	EventRegistration registration = (EventRegistration) bean;
+  }*/
 }

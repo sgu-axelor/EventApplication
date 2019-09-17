@@ -20,8 +20,7 @@
 		</panel>
 	</form>
 
-	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave"
-		onLoad="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry,save">
+	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave">
 		<toolbar>
 			<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>
 			<button name="importButton" onClick="action-event-view-eventWizard,close" title="Import registration" showIf="id"/>
@@ -57,7 +56,7 @@
 		<panel-tabs>
 			<panel title="Event Registrations">
 				<panel-related field="eventRegistration" form-view="event-registration-form" grid-view="event-registration-grid" colSpan="12"
-					onChange="action-event-method-calTotalAmount,action-event-mthod-set-totalEntry" />
+					onChange="action-event-method-calTotalAmount,action-event-method-set-totalEntry" />
 			</panel>
 			<panel title="Discounts" showIf="registrationOpen!=null &amp;&amp; registrationClose!=null">
 				<panel-related field="discount" colSpan="12" grid-view="discount-grid" form-view="discount-form" />
@@ -111,7 +110,7 @@
 		<call class="com.axelor.apps.event.web.EventController" method="calTotalAmount" />
 	</action-method>
 
-	<action-method name="action-event-mthod-set-totalEntry">
+	<action-method name="action-event-method-set-totalEntry">
 		<call class="com.axelor.apps.event.web.EventController" method="setTotalEntries" />
 	</action-method>
 

@@ -2,7 +2,7 @@
 <object-views xmlns="http://axelor.com/xml/ns/object-views" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://axelor.com/xml/ns/object-views http://axelor.com/xml/ns/object-views/object-views_5.0.xsd">
 
-	<grid model="com.axelor.apps.event.db.EventRegistration" title="Event Registrations" name="event-registration-grid">
+	<grid model="com.axelor.apps.event.db.EventRegistration" title="Event Registrations" name="event-registration-grid" canDelete="false">
 		<field name="event" />
 		<field name="name" />
 		<field name="email" />
@@ -11,7 +11,7 @@
 	</grid>
 
 	<form model="com.axelor.apps.event.db.EventRegistration" title="Event Registration" name="event-registration-form"
-		onNew="action.event.method.setDefaults" onSave="action-event-registration-method-onSave">
+		onNew="action.event.method.setDefaults" onSave="action-event-registration-validate,action-event-registration-method-onSave" canDelete="false">
 		<panel title="Personal Information">
 			<field name="name" required="true"/>
 			<field name="email" placeholder="whatever@example.com" colSpan="5"
@@ -45,6 +45,6 @@
 	</action-record>
 	
 	<action-method name="action-event-registration-method-onSave">
-		<call class="com.axelor.apps.event.web.EventRegistrationController" method="setTotalEntry"/>
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="updateEvent"/>
 	</action-method>
 </object-views>
