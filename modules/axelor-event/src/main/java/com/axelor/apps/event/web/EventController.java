@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
+import com.axelor.app.AppSettings;
 import com.axelor.apps.event.db.Event;
 import com.axelor.apps.event.db.EventRegistration;
 import com.axelor.apps.event.db.repo.EventRegistrationRepository;
@@ -44,7 +45,7 @@ public class EventController {
             I18n.get(
                 "Closing Date of Registration can never be After the Start Date of the Event"));
       }
-      if (event.getCapacity() != 0 && event.getTotalEntry() > event.getCapacity()) {
+      if (event.getCapacity() == 0 || event.getTotalEntry() > event.getCapacity()) {
         throw new Exception(I18n.get("No. of Registration is more Than total capacity of Event"));
       }
     } catch (Exception e) {
@@ -79,7 +80,7 @@ public class EventController {
     }
     response.setValues(event);
   }
-  
+
   @Transactional
   public void importRegistrations(ActionRequest request, ActionResponse response) {
     @SuppressWarnings("unchecked")
@@ -97,22 +98,29 @@ public class EventController {
 
           String[] nextRecord;
           while ((nextRecord = csvReader.readNext()) != null) {
-            System.err.println(nextRecord[0]); 
+            System.err.println(nextRecord[0]);
             EventRegistration registration = new EventRegistration();
             registration.setEvent(event);
             registration.setName(nextRecord[0]);
             registration.setEmail(nextRecord[1]);
-            
+
             event.getEventRegistration().add(registration);
-            System.err.println(registration ); 
+            System.err.println(registration);
             registrationRepo.save(registration);
           }
         } else {
           throw new Exception(I18n.get("Only '.csv' file should be uploaded"));
-        }   
+        }
       }
     } catch (Exception e) {
       response.setError(e.getMessage());
     }
+  }
+
+  public void setReportParams(ActionRequest req, ActionResponse res) {
+    String attachmentPath = AppSettings.get().getPath("file.upload.dir", "");
+    if (attachmentPath.charAt(attachmentPath.length() - 1) == '/')
+      req.getContext().put("Attachments", attachmentPath);
+    else req.getContext().put("Attachments", attachmentPath + "/");
   }
 }

@@ -11,7 +11,7 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
 
   @Override
   public void calculateAmount(EventRegistration registration, Event event) throws Exception {
-    BigDecimal amount = BigDecimal.ZERO;
+    BigDecimal amount = BigDecimal.ZERO, temp = BigDecimal.ZERO;
     LocalDateTime registrationDate = registration.getRegistrationDate();
     if (registrationDate != null
         && (registrationDate.toLocalDate().isBefore(event.getRegistrationClose())
@@ -20,6 +20,7 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
             || registrationDate.toLocalDate().isEqual(event.getRegistrationOpen()))) {
       if (event.getDiscount() != null && !event.getDiscount().isEmpty()) {
         for (Discount discount : event.getDiscount()) {
+          System.err.println(event.getRegistrationClose().minusDays(discount.getBeforeDays()));
           if (registrationDate
                   .toLocalDate()
                   .isBefore(event.getRegistrationClose().minusDays(discount.getBeforeDays()))
@@ -32,10 +33,15 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
                     .multiply(event.getEventFee())
                     .divide(new BigDecimal(100));
             amount = event.getEventFee().subtract(amount);
-            break;
+            if (temp.compareTo(BigDecimal.ZERO) == 0) {
+              temp = amount;
+            } else if (temp.compareTo(amount) == -1) {
+              amount = temp;
+            }
           }
         }
       }
+
       if (amount.compareTo(BigDecimal.ZERO) == 0) {
         amount = event.getEventFee();
       }

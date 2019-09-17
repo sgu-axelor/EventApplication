@@ -14,8 +14,9 @@
 		onNew="action.event.method.setDefaults" onSave="action-event-registration-method-onSave">
 		<panel title="Personal Information">
 			<field name="name" required="true"/>
-			<field name="email" placeholder="whatever@example.com"
+			<field name="email" placeholder="whatever@example.com" colSpan="5"
 				pattern="^[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+(?:\.[a-z0-9A-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ!#$%&amp;'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[a-z]{2,})$" />
+			<field name="emailSent" colSpan="1"/>
 			<field name="address" />
 		</panel>
 		<panel colSpan="12">

@@ -749,16 +749,6 @@ where event = ? ;]]></xml-property>
     <page-setup>
         <simple-master-page name="Simple MasterPage" id="2">
             <property name="footerHeight">0.8in</property>
-            <page-header>
-                <image id="106">
-                    <property name="marginLeft">3.2in</property>
-                    <property name="textAlign">center</property>
-                    <property name="height">0.4in</property>
-                    <property name="width">1.5in</property>
-                    <property name="source">embed</property>
-                    <property name="imageName">logo.png</property>
-                </image>
-            </page-header>
             <page-footer>
                 <grid id="108">
                     <list-property name="boundDataColumns">
@@ -1005,9 +995,11 @@ where event = ? ;]]></xml-property>
                     <cell id="145">
                         <text id="167">
                             <property name="borderLeftStyle">solid</property>
-                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderLeftWidth">thin</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="textAlign">left</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Name]]></text-property>
@@ -1018,19 +1010,25 @@ where event = ? ;]]></xml-property>
                         <property name="verticalAlign">middle</property>
                         <text id="168">
                             <property name="borderLeftStyle">solid</property>
-                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderLeftWidth">thin</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Email]]></text-property>
                         </text>
                     </cell>
                     <cell id="147">
+                        <property name="borderLeftStyle">solid</property>
+                        <property name="borderLeftWidth">medium</property>
                         <text id="169">
                             <property name="borderLeftStyle">solid</property>
-                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderLeftWidth">thin</property>
+                            <property name="borderRightStyle">solid</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="textAlign">left</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Registration Date]]></text-property>
@@ -1039,11 +1037,11 @@ where event = ? ;]]></xml-property>
                     <cell id="148">
                         <text id="170">
                             <property name="borderLeftStyle">solid</property>
-                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderLeftWidth">thin</property>
                             <property name="borderRightStyle">solid</property>
-                            <property name="borderRightWidth">medium</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="textAlign">left</property>
                             <property name="contentType">auto</property>
                             <text-property name="content"><![CDATA[Amount]]></text-property>
@@ -1056,38 +1054,38 @@ where event = ? ;]]></xml-property>
                     <cell id="151">
                         <data id="172">
                             <property name="borderLeftStyle">solid</property>
-                            <property name="borderLeftWidth">medium</property>
+                            <property name="borderLeftWidth">thin</property>
                             <property name="borderRightStyle">solid</property>
-                            <property name="borderRightWidth">medium</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="resultSetColumn">name</property>
                         </data>
                     </cell>
                     <cell id="152">
                         <data id="173">
                             <property name="borderRightStyle">solid</property>
-                            <property name="borderRightWidth">medium</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="resultSetColumn">email</property>
                         </data>
                     </cell>
                     <cell id="153">
                         <data id="174">
                             <property name="borderRightStyle">solid</property>
-                            <property name="borderRightWidth">medium</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="resultSetColumn">registration_date</property>
                         </data>
                     </cell>
                     <cell id="154">
                         <data id="175">
                             <property name="borderRightStyle">solid</property>
-                            <property name="borderRightWidth">medium</property>
+                            <property name="borderRightWidth">thin</property>
                             <property name="borderTopStyle">solid</property>
-                            <property name="borderTopWidth">medium</property>
+                            <property name="borderTopWidth">thin</property>
                             <property name="resultSetColumn">amount</property>
                         </data>
                     </cell>
@@ -1095,22 +1093,10 @@ where event = ? ;]]></xml-property>
             </detail>
             <footer>
                 <row id="156">
-                    <cell id="157">
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
-                    </cell>
-                    <cell id="158">
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
-                    </cell>
-                    <cell id="159">
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
-                    </cell>
-                    <cell id="160">
-                        <property name="borderTopStyle">solid</property>
-                        <property name="borderTopWidth">medium</property>
-                    </cell>
+                    <cell id="157"/>
+                    <cell id="158"/>
+                    <cell id="159"/>
+                    <cell id="160"/>
                 </row>
             </footer>
         </table>

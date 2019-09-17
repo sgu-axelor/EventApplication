@@ -10,5 +10,6 @@
 		<many-to-one name="address" ref="Address" title="Address"/>
 		<datetime name="registrationDate" title="Registration Date"/>
 		<decimal name="amount" title="Amount" readonly="true"></decimal> 
+		<boolean name="emailSent" default="false" title="Email Sent"/>
 	</entity>
 </domain-models>
