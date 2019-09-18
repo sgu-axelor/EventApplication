@@ -25,7 +25,6 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
             || registrationDate.isEqual(event.getRegistrationOpen()))) {
       if (event.getDiscount() != null && !event.getDiscount().isEmpty()) {
         for (Discount discount : event.getDiscount()) {
-          System.err.println(event.getRegistrationClose().minusDays(discount.getBeforeDays()));
           if (registrationDate.isBefore(
                   event.getRegistrationClose().minusDays(discount.getBeforeDays()))
               || registrationDate.isEqual(

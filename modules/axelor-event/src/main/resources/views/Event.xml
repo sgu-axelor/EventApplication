@@ -16,6 +16,7 @@
 	<form model="com.axelor.apps.base.db.Wizard" title="Import Registration of This Event" name="event-import-wizard-form">
 		<panel>
 			<field name="dataFile" type="many-to-one" widget="binary-link" target="com.axelor.meta.db.MetaFile" title="Data File"/>
+			<field name="bindFile" type="many-to-one" widget="binary-link" target="com.axelor.meta.db.MetaFile" title="Binding File"/>
 			<button name="importWizardButton" onClick="action-event-wizard-method-import-registrations,close" title="Import" />
 		</panel>
 	</form>
@@ -23,7 +24,7 @@
 	<form model="com.axelor.apps.event.db.Event" title="Event" name="event-form" onSave="action-event-group-onSave">
 		<toolbar>
 			<button name="rptButton" onClick="action-event-report" title="Report this Event" showIf="id"/>
-			<button name="importButton" onClick="action-event-view-eventWizard,close" title="Import registration" showIf="id"/>
+			<button name="importButton" onClick="action-event-view-eventWizard,action-event-method-set-import-details,close" title="Import registration" showIf="id"/>
 			<button name="sendEmailButton" onClick="action-event-method-send-email" title ="SendEmail" showIf="id &amp;&amp; eventRegistration!=null" icon="fa-paper-plane"/>
 		</toolbar>
 		<panel>
@@ -128,6 +129,10 @@
 
 	<action-method name="action-message-method-set-email-boolean">
 		<call class="com.axelor.apps.event.web.EventController" method="setEmailBoolean"/>
+	</action-method>
+	
+	<action-method name="action-event-method-set-import-details">
+		<call class="com.axelor.apps.event.service.EventServiceImpl" method="setEvent"/>
 	</action-method>
 	
 	<action-method name="action-event-method-send-email">
