@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.commons.collections.map.HashedMap;
 
+import com.axelor.app.AppSettings;
 import com.axelor.apps.event.service.imports.importer.ImportCSV;
 import com.axelor.inject.Beans;
 import com.axelor.meta.MetaFiles;
@@ -18,7 +19,7 @@ public class EventImport {
   @Inject private MetaFileRepository metaFileRepo;
 
   public void importRegistrations(
-      Integer _eventId, Map<String, Object> dataFile, Map<String, Object> bindFile) {
+      Integer _eventId, Map<String, Object> dataFile, Map<String, Object> bindFile) throws Exception {
     MetaFile metaDataFile = metaFileRepo.find(((Integer) dataFile.get("id")).longValue());
     MetaFile metaBindingFile = metaFileRepo.find(((Integer) bindFile.get("id")).longValue());
     
@@ -26,6 +27,6 @@ public class EventImport {
     context.put("id", _eventId);
     Beans.get(ImportCSV.class)
     .process(
-        MetaFiles.getPath(metaBindingFile).toFile().getAbsolutePath(), "/home/axelor/data/attachments/EventApp",context);
+        MetaFiles.getPath(metaBindingFile).toFile().getAbsolutePath(), AppSettings.get().getPath("file.upload.dir", ""),context);
   }
 }

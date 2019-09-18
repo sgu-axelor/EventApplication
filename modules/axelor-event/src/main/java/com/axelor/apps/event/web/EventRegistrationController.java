@@ -12,6 +12,7 @@ import com.axelor.rpc.ActionResponse;
 import com.google.inject.Inject;
 
 public class EventRegistrationController {
+  
   EventRegistrationService eventRegistrationService;
 
   @Inject
@@ -32,14 +33,16 @@ public class EventRegistrationController {
   public void calculateAmount(ActionRequest request, ActionResponse response) {
     EventRegistration registration = request.getContext().asType(EventRegistration.class);
     Event event = null;
+    
     if (request.getContext().getParent() != null)
       event = request.getContext().getParent().asType(Event.class);
     else event = registration.getEvent();
+    
     if (registration.getRegistrationDate() == null) {
       registration.setAmount(BigDecimal.ZERO);
     } else {
       try {
-        eventRegistrationService.calculateAmount(registration, event);
+        eventRegistrationService.calculateAmounts(registration, event);
       } catch (Exception e) {
         response.addError("registrationDate", e.getMessage());
       }
@@ -47,10 +50,9 @@ public class EventRegistrationController {
     response.setValues(registration);
   }
 
-  public void updateEvent(ActionRequest request, ActionResponse response) {
+  public void saveEventRegistration(ActionRequest request, ActionResponse response) {
     EventRegistration registration = request.getContext().asType(EventRegistration.class);
-    Event event = registration.getEvent();
-    eventRegistrationService.updateEvent(event,registration);
+    eventRegistrationService.saveEventRegistration(registration);
     response.setValues(registration);
   }
 

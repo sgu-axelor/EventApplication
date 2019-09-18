@@ -3,19 +3,21 @@ package com.axelor.apps.event.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 import com.axelor.apps.event.db.Discount;
 import com.axelor.apps.event.db.Event;
 import com.axelor.apps.event.db.EventRegistration;
 import com.axelor.apps.event.db.repo.EventRegistrationRepository;
 import com.axelor.apps.event.db.repo.EventRepository;
+import com.axelor.i18n.I18n;
 import com.axelor.inject.Beans;
 import com.google.inject.persist.Transactional;
 
 public class EventRegistrationServiceImpl implements EventRegistrationService {
 
   @Override
-  public void calculateAmount(EventRegistration registration, Event event) throws Exception {
+  public void calculateAmounts(EventRegistration registration, Event event) throws Exception {
     BigDecimal amount = BigDecimal.ZERO, temp = BigDecimal.ZERO;
     LocalDate registrationDate = registration.getRegistrationDate().toLocalDate();
     if (registrationDate != null
@@ -48,7 +50,7 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
         amount = event.getEventFee();
       }
     } else {
-      throw new Exception("Registration Date is not in the Registration Period.");
+      throw new Exception(I18n.get("Registration Date is not in the Registration Period."));
     }
 
     registration.setAmount(amount);
@@ -56,7 +58,9 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
 
   @Override
   @Transactional
-  public void updateEvent(Event event, EventRegistration registration) {
+  public void saveEventRegistration(EventRegistration registration) {
+    Event event = registration.getEvent();
+
     BigDecimal registrationAmount = registration.getAmount();
     BigDecimal eventTotalAmount = event.getAmountCollected();
     BigDecimal eventTotalDiscount = event.getTotalDiscount();
@@ -87,5 +91,24 @@ public class EventRegistrationServiceImpl implements EventRegistrationService {
     event.setAmountCollected(eventTotalAmount);
     event.setTotalDiscount(eventTotalDiscount);
     Beans.get(EventRepository.class).save(event);
+  }
+
+  public EventRegistration importChecks(Object bean, Map<?, ?> context) {
+    EventRegistration registration = (EventRegistration) bean;
+    Event event = registration.getEvent();
+    try {
+      if (registration.getAmount().compareTo(BigDecimal.ZERO)==0 ) {
+        this.calculateAmounts(registration, event);
+      }
+      if (event.getTotalEntry() < event.getCapacity()) {
+        this.saveEventRegistration(registration);
+      } else {
+        throw new Exception(I18n.get("Booking Closed Event is Housefull"));
+      }
+    } catch (Exception e) {
+      System.err.println("Error in loading Registration of :"+registration.getName()+": "+e.getMessage()); 
+      registration = null;
+    }
+    return registration;
   }
 }

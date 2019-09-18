@@ -91,21 +91,25 @@ public class EventController {
     response.setValues(event);
   }
 
+  @SuppressWarnings("unchecked")
   public void importRegistrations(ActionRequest request, ActionResponse response) {
-    @SuppressWarnings("unchecked")
     Map<String, Object> dataFile = (Map<String, Object>) request.getContext().get("dataFile");
     Map<String, Object> bindFile = (Map<String, Object>) request.getContext().get("bindFile");
+    try {
       if (dataFile != null && bindFile!=null) {
         String fileName = (String) dataFile.get("fileName");
         if (fileName.contains(".csv")) {
           Beans.get(EventImport.class).importRegistrations((Integer)request.getContext().get("_id"), dataFile,bindFile);
         } else {
-          response.setError(I18n.get("Only '.csv' file should be uploaded"));
+          throw new Exception(I18n.get("Only '.csv' file should be uploaded"));
         }
       } 
       else {
-        response.setError("Please Enter Both File");
+        throw new Exception(I18n.get("Please Enter Both File"));
       }
+    } catch (Exception e) {
+      response.setError(e.getMessage());
+    }
   }
   
   public void setEmailBoolean(ActionRequest request, ActionResponse response) {

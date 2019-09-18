@@ -33,7 +33,7 @@
 	</action-method>
 
 	<action-method name="action-event-method-calAmount">
-		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmount" />
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="calculateAmounts" />
 	</action-method>
 	
 	<action-validate name="action-event-registration-validate">
@@ -45,6 +45,6 @@
 	</action-record>
 	
 	<action-method name="action-event-registration-method-onSave">
-		<call class="com.axelor.apps.event.web.EventRegistrationController" method="updateEvent"/>
+		<call class="com.axelor.apps.event.web.EventRegistrationController" method="saveEventRegistration"/>
 	</action-method>
 </object-views>

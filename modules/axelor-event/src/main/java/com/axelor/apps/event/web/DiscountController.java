@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.axelor.apps.event.db.Discount;
 import com.axelor.apps.event.db.Event;
+import com.axelor.i18n.I18n;
 import com.axelor.rpc.ActionRequest;
 import com.axelor.rpc.ActionResponse;
 
@@ -37,7 +38,7 @@ public class DiscountController {
               .isEqual(event.getRegistrationClose())) {
         response.addError(
             "beforeDays",
-            "Before Days is exceeds the Differenence of Registration Open and Close Date");
+            I18n.get("Before Days exceeds the Differenence of Registration Open and Close Date"));
       }
     }
   }

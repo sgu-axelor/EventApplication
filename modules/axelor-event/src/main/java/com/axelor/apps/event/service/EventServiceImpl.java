@@ -25,25 +25,5 @@ public class EventServiceImpl implements EventService {
       }
     }
   }
-
-  @Transactional
-  public void setEvent(ActionRequest request, ActionResponse response) {
-    Integer eventId = (Integer) request.getContext().get("_id");
-    Event event = eventRepo.find(eventId.longValue());
-    BigDecimal totalAmount = BigDecimal.ZERO;
-    
-    if (event.getEventRegistration() != null && !event.getEventRegistration().isEmpty()) {
-      event.setTotalEntry(event.getEventRegistration().size());
-      for (EventRegistration registration : event.getEventRegistration()) {
-        totalAmount = totalAmount.add(registration.getAmount());
-      }
-      event.setTotalDiscount(
-          event
-              .getEventFee()
-              .multiply(new BigDecimal(event.getEventRegistration().size()))
-              .subtract(totalAmount));
-    }
-    event.setAmountCollected(totalAmount);
-    eventRepo.save(event);
-  }
+  
 }
